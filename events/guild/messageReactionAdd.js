@@ -6,6 +6,9 @@ const ReactionModel = require("../../models/ReactionRole");
  * @param {User} user
  */
 module.exports = (reaction, user) => {
+//if the message is partial
+if(reaction.message.partial) await reaction.message.fetch();
+//We fetched the message so it can use uncached messages
   let member = reaction.message.guild.members.cache.get(user.id);
   ReactionModel.findOne(
     {
